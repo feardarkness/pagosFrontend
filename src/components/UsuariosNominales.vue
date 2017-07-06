@@ -1,22 +1,90 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <form>
+      <div class="field">
+        <label class="label" for="usuario">Usuario:</label>
+        <p class="control has-icons-left">
+          <input class="input" v-model="usuario.usuarioNominal.usuarioLogin" name="usuario" value="" placeholder="Usuario para ingresar a la aplicación"></input>
+          <span class="icon is-small is-left">
+            <i class="fa fa-user"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label" for="password">Password:</label>
+        <p class="control has-icons-left">
+          <input class="input" type="password" v-model="usuario.usuarioNominal.password" name="password" value="" placeholder="Password para ingresar a la aplicación"></input>
+          <span class="icon is-small is-left">
+            <i class="fa fa-key"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label" for="ci">CI:</label>
+        <p class="control has-icons-left">
+          <input class="input" v-model="usuario.usuarioNominal.persona.ci" name="ci" value="" placeholder="Cedula de Identidad"></input>
+          <span class="icon is-small is-left">
+            <i class="fa fa-vcard"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <p class="control has-icons-left">
+          <input class="input" v-model="usuario.usuarioNominal.persona.fechaNacimiento" name="fecha_nacimiento" value="" placeholder="Fecha de nacimiento (dd/mm/yyyy)"></input>
+          <span class="icon is-small is-left">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label" for="complemento">Complemento:</label>
+        <p class="control has-icons-left">
+          <input class="input" v-model="usuario.usuarioNominal.persona.complemento" name="complemento" value="" placeholder="Complemento del Documento de Identidad"></input>
+          <span class="icon is-small is-left">
+            <i class="fa fa-question"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="entidad">Entidad:</label>
+        </div>
+        <div class="field-body">
+          <p class="control">
+            <span class="select">
+              <select v-model="usuario.entidad.id" name="entidad">
+                <option value="0">Ninguna Entidad Seleccionada</option>
+                <option value="1">Agetic</option>
+                <option value="2">Ministerio de Economía y Finanzas Públicas</option>
+              </select>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="rol">Rol:</label>
+        </div>
+        <div class="field-body">
+          <p class="control">
+            <span class="select">
+              <select v-model="usuario.rol.id" name="rol">
+                <option value="0">Ningún Rol Seleccionado</option>
+                <option value="1">Administrador</option>
+                <option value="2">Usuario</option>
+              </select>
+            </span>
+          </p>
+        </div>
+      </div>
+      <button v-bind:class="{ 'is-loading': isLoading }" class="button is-primary" v-on:click="registrar()" v-bind:disabled="buttonEnabled === 'disabled'? true: false">
+      <span>Registrar</span>
+      <span class="icon is-small">
+        <i class="fa fa-send"></i>
+      </span>
+    </button>
+    </form>
   </div>
 </template>
 
@@ -25,8 +93,39 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      isLoading: false,
+      usuario: {
+        transicion: '',
+        usuarioNominal: {
+          usuarioLogin: '',
+          password: '',
+          persona: {
+            ci: '',
+            fechaNacimiento: '',
+            complemento: '',
+          },
+        },
+        entidad: {
+          id: 0,
+        },
+        rol: {
+          id: 0,
+        },
+      },
     };
+  },
+  computed: {
+    buttonEnabled() {
+      if (this.usuariom !== '' && this.passwordm !== '') {
+        return 'enabled';
+      }
+      return 'disabled';
+    },
+  },
+  methods: {
+    registrar() {
+      this.isLoading = true;
+    },
   },
 };
 </script>

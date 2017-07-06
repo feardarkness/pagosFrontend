@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <form v-on:submit.prevent>
     <div class="field">
       <label class="label" for="usuario">Usuario:</label>
       <p class="control has-icons-left">
@@ -25,7 +25,7 @@
         <i class="fa fa-send"></i>
       </span>
     </button>
-  </div>
+  </form>
 </template>
 
 <script>
