@@ -126,6 +126,9 @@ export default {
   methods: {
     registrar() {
       this.isLoading = true;
+      console.log('===============================================================');
+      console.log(this.usuario);
+      console.log('===============================================================');
     },
   },
   created() {
