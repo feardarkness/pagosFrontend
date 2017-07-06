@@ -3,10 +3,13 @@ export default {
     autenticado: false,
   },
   verificarLogueado() {
-    const item = localStorage.getItem('app_token');
-    if (item !== null && item !== undefined) {
+    const token = this.obtenerToken();
+    if (token !== null && token !== undefined) {
       this.usuario.autenticado = true;
     }
+  },
+  obtenerToken() {
+    return localStorage.getItem('app_token');
   },
   establecerToken(token) {
     localStorage.setItem('app_token', token);

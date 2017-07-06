@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <form>
+    <form v-on:submit.prevent>
       <div class="field">
         <label class="label" for="usuario">Usuario:</label>
         <p class="control has-icons-left">
@@ -55,8 +55,7 @@
             <span class="select">
               <select v-model="usuario.entidad.id" name="entidad">
                 <option value="0">Ninguna Entidad Seleccionada</option>
-                <option value="1">Agetic</option>
-                <option value="2">Ministerio de Economía y Finanzas Públicas</option>
+                <option v-for="entidad of entidades" :value="entidad.id">{{entidad.descripcion}}</option>
               </select>
             </span>
           </p>
@@ -70,7 +69,7 @@
           <p class="control">
             <span class="select">
               <select v-model="usuario.rol.id" name="rol">
-                <option value="0">Ningún Rol Seleccionado</option>
+                <option value="0" selected>Ningún Rol Seleccionado</option>
                 <option value="1">Administrador</option>
                 <option value="2">Usuario</option>
               </select>
@@ -89,11 +88,13 @@
 </template>
 
 <script>
+
 export default {
   name: 'hello',
   data() {
     return {
       isLoading: false,
+      entidades: [],
       usuario: {
         transicion: '',
         usuarioNominal: {
@@ -126,6 +127,20 @@ export default {
     registrar() {
       this.isLoading = true;
     },
+  },
+  created() {
+    this.$http.obtenerEntidades()
+        .then((result) => {
+          this.entidades = result.data.datos;
+          console.log('===============================================================');
+          console.log(result.data.datos);
+          console.log('===============================================================');
+        })
+        .catch((err) => {
+          console.log('===============================================================');
+          console.log(err);
+          console.log('===============================================================');
+        });
   },
 };
 </script>
