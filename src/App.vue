@@ -1,8 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>Esto debería estar en ambos</h1>
-    <router-view></router-view>
+    <div class="container">
+      <img src="./assets/logo.png">
+      <h1>Esto debería estar en todo lado, por eso está, cambiar por los headers y esas cosas...</h1>
+      <hr />
+      <div class="columns">
+        <div class="column">
+          <!-- crea transiciones entre los routers :O -->
+          <transition name="fade">
+            <router-view></router-view>
+          </transition>
+        </div>
+      </div>
+    </div>
+    <!-- Sticky footer investigar -->
+    <footer>
+      <div class="container">
+        <h2>Agetic @ 2017</h2>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -14,11 +30,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /* useless just for testing */
+  background-color: white;
 }
 </style>

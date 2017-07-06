@@ -1,21 +1,31 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/Hello';
-import UsuarioNominal from '@/components/UsuarioNominal';
+import UsuariosNominales from '@/components/UsuariosNominales';
+import Login from '@/components/Login';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello,
+      path: '/usuariosNominales',
+      name: 'usuariosNominales',
+      component: UsuariosNominales,
+      meta: {
+        necesitaAuth: true,
+      },
     },
     {
-      path: '/usuarioNominal',
-      name: 'usuarioNominal',
-      component: UsuarioNominal,
+      path: '/',
+      redirect: '/usuariosNominales',
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: {
+        necesitaAuth: false,
+      },
     },
   ],
 });
